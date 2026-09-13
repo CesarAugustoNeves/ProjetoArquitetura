@@ -14,16 +14,18 @@ ISABELLE ORMO CRENONINI RA:
 
 VITOR EUGÊNIO CASTELANO SILVA RA:
 
+/----------------------------------------------------------------------------\
 
 Grupo 09
 Caso:
   Saúde: rede municipal de atenção à saúde
   
-
+/----------------------------------------------------------------------------\
 
 Envelope:
   D. Empresa que vende para várias cidades, 25 desenvolvedores
-  
+
+/----------------------------------------------------------------------------\
 
 Exigência que domina:
   Vários clientes; pico sazonal; falha isolada
