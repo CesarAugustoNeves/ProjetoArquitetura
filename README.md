@@ -4,6 +4,7 @@ Github feito para o projeto da matéria de PADRÕES E ARQUITETURA DE SOFTWARE.
 /----------------------------------------------------------------------------\
 
 INTEGRANTES:
+
 ALEX LEANDRO SOARES TORRES RA:
 
 CESAR AUGUSTO NEVES RA: 24004118
