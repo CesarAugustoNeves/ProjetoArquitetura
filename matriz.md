@@ -2,8 +2,6 @@
 
 Tabela de Avaliação dos 12 Estilos Arquiteturais (Partes II, III e IV)
 
-A tabela a seguir examina cada um dos doze estilos arquiteturais do livro, indicando sua aderência ao envelope da empresa, o subdomínio de aplicação, a fundamentação com citações diretas das seções da obra e o balanço de atributos de qualidade afetados.
-
 | Estilo Arquitetural (Capítulo) | Serve para o meu caso e envelope? | Em qual subdomínio entraria | Por quê (em até três frases, citando a seção do livro) | Qual atributo de qualidade melhora e qual piora no meu contexto |
 | :--- | :---: | :--- | :--- | :--- |
 | **Monolito em camadas** (Cap. 5) | **Não** | Nenhum (*descartado*) | Conforme a seção 5.6, o estilo deve ser evitado quando partes do sistema possuem perfis de carga muito distintos e quando a aplicação cresce em domínios ricos e complexos. No nosso envelope, a unidade única de implantação descrita na seção 5.1 impede o isolamento de falhas exigido, fazendo com que um pico de 20 vezes no agendamento de vacinas derrube a regulação de leitos e o pronto atendimento. Além disso, a seção 5.2 adverte que a falta de fronteiras internas de negócio favorece o acoplamento silencioso e a deriva para uma "grande bola de lama". | **Melhora:** Custo operacional e simplicidade inicial (seção 5.7).<br>**Piora:** Disponibilidade (raio de impacto total, sem falha isolada) e Escalabilidade (seção 5.6 e Tabela A.1). |
