@@ -1,13 +1,5 @@
 # Avaliação de Estilos Arquiteturais — Sistema de Rede Municipal de Atenção à Saúde
 
-**Caso / Problema:** Grupo 09 — Saúde: rede municipal de atenção à saúde  
-**Envelope Operacional:** Empresa de software que vende para várias cidades (multi-inquilino)  
-**Equipe de Engenharia:** 25 desenvolvedores  
-**Requisitos Críticos do Envelope:** Vários clientes municipais, picos sazonais extremos, isolamento estrito de falhas (*blast radius* reduzido)  
-**Fonte Teórica e Normativa:** *Estilos Arquiteturais de Software: guia de consulta* (Douglas H. S. Abreu, 2026) — Partes II, III e IV (Capítulos 5 a 16 e Apêndice A)
-
----
-
 ## 1. Contexto do Problema e Premissas do Envelope Operacional
 
 A empresa desenvolve e comercializa uma solução integrada para redes municipais de saúde pública em diversas cidades. O cenário de implantação abrange:
