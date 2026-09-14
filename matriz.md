@@ -63,14 +63,3 @@ O processo de avaliação arquitetural identificou pelo menos dois estilos que d
 
 ---
 
-## 4. Síntese da Arquitetura Híbrida Recomendada
-
-Em conformidade com a seção 4.6 (ADR em arquiteturas híbridas) e as seções de combinações de cada capítulo (6.9, 7.9, 9.9, 11.9, 12.9, 13.9, 14.9, 15.9 e 16.9), a solução viável para o envelope compõe os estilos aprovados da seguinte forma:
-1. **Macroestrutura de Distribuição (Capítulo 13 — Celular):** Uma célula estanque por município cliente, garantindo isolamento total de dados e falhas entre as cidades atendidas pela empresa.
-2. **Núcleo Transacional Interno da Célula (Capítulo 6 — Monolito Modular):** Cada célula municipal roda um monolito modular contendo os domínios de Triagem, Atendimento, Farmácia e Regulação, protegidos por funções de aptidão no pipeline de CI/CD.
-3. **Isolamento de Domínio e Legados (Capítulo 7 — Hexagonal):** Módulos clínicos utilizam portas e adaptadores para se isolar do meio físico e criar camadas anticorrupção contra o legado de leitos e as APIs federais instáveis.
-4. **Comunicação Assíncrona e Resiliência Offline (Capítulo 11 — Orientada a Eventos):** Tópicos de mensageria conectam as unidades remotas, permitindo que as UBSs operem desconectadas durante quedas diárias de internet e sincronizem eventos idempotentes na reconexão.
-5. **Absorção de Picos de Campanhas (Capítulo 12 — Serverless / FaaS):** O portal de agendamento e autoatendimento do cidadão é isolado em funções serverless que escalam dinamicamente durante campanhas vacinais sem onerar o núcleo hospitalar.
-6. **Leitura Desnormalizada Concorrente (Capítulo 14 — CQRS):** A regulação de leitos mantém modelo de escrita focado nas invariantes de alocação e projeta visões materializadas de vagas para rápida consulta pelas unidades.
-7. **Rastreabilidade Regulatória (Capítulo 15 — Event Sourcing):** Aplicado seletivamente no Prontuário Eletrônico para garantir a trilha de auditoria e guarda histórica por 20 anos, utilizando *crypto-shredding* para conformidade com a LGPD.
-8. **Processamento Epidemiológico (Capítulo 16 — Pipes and Filters):** Pipeline em lote e contínuo para ingestão, anonimização, validação e agregação das notificações compulsórias da Vigilância em até 24 horas.
