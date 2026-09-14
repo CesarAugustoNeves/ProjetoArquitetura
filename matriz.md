@@ -1,22 +1,6 @@
 # Avaliação de Estilos Arquiteturais — Sistema de Rede Municipal de Atenção à Saúde
 
-## 1. Contexto do Problema e Premissas do Envelope Operacional
-
-A empresa desenvolve e comercializa uma solução integrada para redes municipais de saúde pública em diversas cidades. O cenário de implantação abrange:
-* **Dimensão da Rede:** 70 Unidades Básicas de Saúde (UBS), 5 Unidades de Pronto Atendimento (UPA) e 1 Hospital Municipal de Referência com 400 leitos regulados.
-* **Volume Operacional:** 12 mil atendimentos diários na rede; picos locais de 40 triagens por hora na maior UPA.
-* **Infraestrutura e Conectividade:** Quedas diárias de internet nas UBSs com duração de minutos a horas, exigindo operação *offline-first* com sincronização confiável posterior sem duplicatas.
-* **Prontuário Eletrônico:** Guarda obrigatória por 20 anos, natureza sensível de dados sob a LGPD e rastreabilidade estrita de autoria e acessos.
-* **Regulação de Leitos e Transporte:** Concorrência em tempo real para reserva de leitos com consistência imediata (um leito jamais pode ser reservado duas vezes); integração mandatória com sistema legado de regulação ativo por pelo menos dois anos.
-* **Farmácia e Dispensação:** 1.200 itens de estoque com rastreio de lote e validade; dispensação obrigatoriamente vinculada a receita médica válida no prontuário.
-* **Vigilância Epidemiológica:** Notificação compulsória de agravos em até 24 horas e agregação analítica de dados por bairro e período.
-* **Agendamento e Cidadão:** Picos sazonais em campanhas de vacinação de até 20 vezes o tráfego regular, que não podem degradar o atendimento das UPAs e hospitais.
-* **Integração Externa:** Comunicação com sistemas federais de saúde por APIs sujeitas a janelas frequentes de indisponibilidade.
-* **Restrições da Empresa:** Equipe enxuta de 25 desenvolvedores, produto vendido para múltiplos municípios com particularidades de parametrização e necessidade imperativa de que falhas em um cliente ou subdomínio não afetem os demais.
-
----
-
-## 2. Tabela de Avaliação dos 12 Estilos Arquiteturais (Partes II, III e IV)
+Tabela de Avaliação dos 12 Estilos Arquiteturais (Partes II, III e IV)
 
 A tabela a seguir examina cada um dos doze estilos arquiteturais do livro, indicando sua aderência ao envelope da empresa, o subdomínio de aplicação, a fundamentação com citações diretas das seções da obra e o balanço de atributos de qualidade afetados.
 
