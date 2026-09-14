@@ -21,8 +21,6 @@ Tabela de Avaliação dos 12 Estilos Arquiteturais (Partes II, III e IV)
 
 ## Estilos Considerados e Descartados
 
-O processo de avaliação arquitetural identificou pelo menos dois estilos que devem ser descartados para o sistema de saúde municipal com base nas forças e restrições descritas no livro:
-
 ### Descarte do Monolito em Camadas (Capítulo 5)
 * **Veredito:** **NÃO**
 * **Fundamentação:** A seção 5.6 (*Quando evitar*) estabelece que o monolito em camadas é inadequado quando partes do sistema apresentam perfis de carga e ritmos de entrega divergentes. No nosso caso, o agendamento de campanhas vacinais atinge picos sazonais extremos de 20 vezes o tráfego normal, enquanto o pronto atendimento da UPA e a regulação de leitos demandam estabilidade constante e baixa latência. Como o estilo consolida todo o sistema em uma unidade única de implantação sobre um banco compartilhado (seção 5.1), a falha de contenção em um fluxo de alta demanda derruba o processo inteiro. Isso viola o requisito de "falha isolada" do envelope. Adicionalmente, a seção 5.2 adverte que em domínios ricos a ausência de fronteiras internas formais degrada silenciosamente a base para uma grande bola de lama (*big ball of mud*).
