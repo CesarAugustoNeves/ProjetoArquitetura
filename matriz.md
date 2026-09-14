@@ -19,19 +19,15 @@ Tabela de Avaliação dos 12 Estilos Arquiteturais (Partes II, III e IV)
 
 ---
 
-## 3. Estilos Considerados e Descartados (com Justificativa Fundamentada)
+## Estilos Considerados e Descartados
 
 O processo de avaliação arquitetural identificou pelo menos dois estilos que devem ser descartados para o sistema de saúde municipal com base nas forças e restrições descritas no livro:
 
-### 3.1 Descarte do Monolito em Camadas (Capítulo 5)
+### Descarte do Monolito em Camadas (Capítulo 5)
 * **Veredito:** **NÃO**
 * **Fundamentação:** A seção 5.6 (*Quando evitar*) estabelece que o monolito em camadas é inadequado quando partes do sistema apresentam perfis de carga e ritmos de entrega divergentes. No nosso caso, o agendamento de campanhas vacinais atinge picos sazonais extremos de 20 vezes o tráfego normal, enquanto o pronto atendimento da UPA e a regulação de leitos demandam estabilidade constante e baixa latência. Como o estilo consolida todo o sistema em uma unidade única de implantação sobre um banco compartilhado (seção 5.1), a falha de contenção em um fluxo de alta demanda derruba o processo inteiro. Isso viola o requisito de "falha isolada" do envelope. Adicionalmente, a seção 5.2 adverte que em domínios ricos a ausência de fronteiras internas formais degrada silenciosamente a base para uma grande bola de lama (*big ball of mud*).
 
-### 3.2 Descarte do SOA e Barramento de Serviços / ESB (Capítulo 10)
-* **Veredito:** **NÃO**
-* **Fundamentação:** A seção 10.6 (*Quando evitar*) desaconselha formalmente o estilo em sistemas novos, quando a equipe possui autoridade sobre os códigos da aplicação e quando o requisito de latência não tolera a mediação centralizada. O barramento de serviços atua como ponto único de falha (*single point of failure*) e gargalo de tráfego (seções 10.2 e 10.7), o que colide frontalmente com a necessidade de disponibilidade contínua na regulação de leitos e nas UPAs. A seção 10.7 e a Tabela 10.2 sublinham que a operação do barramento exige uma equipe exclusiva dedicada à integração, o que inviabilizaria a alocação de esforço para um time total de 25 desenvolvedores. A integração com o sistema legado de regulação de leitos é solucionada de forma descentralizada e com menor custo através de adaptadores e camadas anticorrupção locais nas pontas, conforme demonstrado no Capítulo 7 (seções 7.3 e 10.9).
-
-### 3.3 Restrição Severa / Descarte Parcial: Microsserviços no Núcleo Clínico (Capítulo 9)
+### Restrição Severa / Descarte Parcial: Microsserviços no Núcleo Clínico (Capítulo 9)
 * **Veredito:** **EM PARTE** (*Descartado para o núcleo clínico; admitido apenas para o portal público de agendamento*)
 * **Fundamentação:** A seção 9.6 alerta que a sobrecarga operacional de microsserviços (malhas de serviços, rastreamento distribuído, contratos de rede) consome a capacidade de entrega de equipes enxutas sem trazer benefícios proporcionais. A regulação de leitos exige garantia transacional imediata de que um leito nunca será alocado a dois pacientes simultaneamente; substituir transações locais ACID por orquestrações de Saga com consistência eventual aumentaria exponencialmente o risco de conflitos graves e internações duplicadas (seção 9.2). O estilo foi descartado para as operações clínicas do dia a dia, sendo restrito exclusivamente à função de agendamento do cidadão em campanha vacinal, onde o desacoplamento de escala é estritamente necessário (seção 9.9).
 
