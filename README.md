@@ -1,32 +1,17 @@
-# ProjetoArquitetura
-Github feito para o projeto da matéria de PADRÕES E ARQUITETURA DE SOFTWARE.
+# Prova de Conceito: Arquitetura Celular por Município
 
-/----------------------------------------------------------------------------\
+## Qual ADR ele prova
+**ADR 0001: Adotar arquitetura celular por município, com composição interna orientada a eventos**
 
-INTEGRANTES:
+Este programa prova a decisão mais arriscada do projeto (ADR 0001): como isolar totalmente a carga e as falhas entre diferentes clientes (Envelope D), garantindo que o pico sazonal brutal de um município não afete os demais. 
 
-* ALEX LEANDRO SOARES TORRES RA: 21937693
+Como bônus para demonstrar alinhamento com a arquitetura definida, o código também simula estruturalmente:
+- **ADR 0003:** O mock da integração com o sistema federal é instanciado *dentro* de cada célula, provando que se a fila federal travar para uma cidade, não trava para a outra.
+- **ADR 0004:** O banco de dados da célula não faz *updates* destrutivos; ele faz *append* em uma lista de eventos (`Event Store`), simulando o Event Sourcing para o prontuário.
 
-* CESAR AUGUSTO NEVES RA: 24004118
+## Como rodar
+O script foi escrito em Python 3.12 e utiliza apenas a biblioteca padrão. A simulação baseia-se em eventos temporais discretos e é 100% determinística.
 
-* ENRYCO SUCOSKI MARTINS RA: 24005483
-
-* ISABELLE ORMO CRENONINI RA:
-
-* VITOR EUGÊNIO CASTELANO SILVA RA: 24005464
-
-/----------------------------------------------------------------------------\
-
-Grupo 09
-Caso:
-  Saúde: rede municipal de atenção à saúde
-  
-/----------------------------------------------------------------------------\
-
-Envelope:
-  D. Empresa que vende para várias cidades, 25 desenvolvedores
-
-/----------------------------------------------------------------------------\
-
-Exigência que domina:
-  Vários clientes; pico sazonal; falha isolada
+1. Execute o script redirecionando a saída para o arquivo de texto:
+   ```bash
+   python exemplo.py > saida-esperada.txt
