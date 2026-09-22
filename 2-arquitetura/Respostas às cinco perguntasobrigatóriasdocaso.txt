@@ -1,0 +1,24 @@
+Pergunta 1 — Como a UPA continua triando e atendendo com a internet fora do ar, e o que acontece quando ela volta?
+
+O atendimento é registrado localmente pelo Cliente Local Atendimento [Desktop/SQLite] (diagrama de contêineres), que fala com o Módulo Triagem e atendimento [hexagonal: portas e adaptadores] (diagrama de componentes) — as regras de triagem ficam isoladas da tecnologia de rede, então elas não sabem nem precisam saber que a internet caiu. Quando a conexão volta, o cliente sincroniza a fila local por [TCP] Sincroniza fila local quando a internet volta para o Gateway, que entrega isso como evento: sincroniza atendimentos ao módulo de Triagem — a "entrada por sincronização idempotente" do módulo garante que reenviar o mesmo lote não duplique atendimento.
+Sustentado por: ADR 0005 (fila local + disjuntor) · diagrama de contêineres (Cliente Local Atendimento) · diagrama de componentes (Módulo Triagem e atendimento).
+
+Pergunta 2 — Como duas unidades disputando o mesmo leito nunca conseguem reservá-lo ao mesmo tempo, com o legado ainda no circuito?
+
+Toda reserva nova passa por um único lugar: o Módulo Regulação de leitos e transporte [CQRS: modelo de escrita], que é quem decide "reservou ou não" — ninguém mais escreve reserva. Consultas de disponibilidade usam a Projeção de vagas [CQRS: modelo de leitura], separada, então nenhuma unidade decide reservar com base num painel desatualizado. Para leitos ainda não migrados, o próprio módulo de escrita chama o legado de forma síncrona por "chamada: reserva no legado, com disjuntor", via a Camada Anticorrupção do Serviço de Integração Externa, o que mantém o legado como fonte de verdade enquanto aquela capacidade não foi migrada.
+Sustentado por: ADR 0002 (estrangulamento + anticorrupção) · ADR 0005 (disjuntor na chamada) · diagrama de componentes (Módulo Regulação de leitos, Projeção de vagas) · diagrama de contêineres (Serviço de Integração Externa → Sistema de Regulação Legado).
+
+Pergunta 3 — Como o prontuário garante que se saiba quem acessou cada registro, e como isso convive com a guarda de 20 anos sob a LGPD?
+
+Cada fato clínico é gravado como evento imutável pelo Módulo Prontuário [event sourcing], direto no Repositório de Longa Guarda [WORM] — write-once, então "quem alterou" nunca pode ser reescrito nem apagado, só acrescentado. Toda leitura, seja de profissional ou do próprio paciente exercendo o direito de acesso da LGPD, passa pela Projeção do prontuário [modelo de leitura], que alimenta o Registro de auditoria por "chamada: registra quem viu". Ou seja: "quem escreveu" vem do próprio fluxo de eventos, "quem leu" vem desse log de auditoria separado — e nenhum dos dois mexe no prazo de retenção de 20 anos.
+Sustentado por: ADR 0004 (event sourcing + log de acesso à parte) · diagrama de componentes (Módulo Prontuário, Projeção do prontuário, Registro de auditoria) · diagrama de contêineres (Repositório de Longa Guarda [WORM]).
+
+Pergunta 4 — Como a notificação compulsória chega à vigilância em até 24h mesmo com o sistema federal indisponível?
+
+O Publicador de eventos [padrão outbox] grava o evento: notificação compulsória na mesma transação em que o fato clínico é registrado — então a notificação nunca se perde por causa de uma chamada externa que falhou. O Serviço de Integração Externa consome esse evento do Barramento e fica reenviando ao sistema federal; a etiqueta "[HTTPS] Reenvia notificações retidas no Outbox" no diagrama de contêineres é exatamente esse reenvio. Como essa fila vive dentro da própria célula do município, uma indisponibilidade federal prolongada só acumula fila daquela cidade, sem tocar nas notificações de nenhuma outra.
+Sustentado por: ADR 0003 (outbox isolado por célula) · diagrama de componentes (Publicador de eventos) · diagrama de contêineres (Serviço de Integração Externa → Sistemas Federais de Saúde).
+
+Pergunta 5 — Como o legado de regulação é substituído aos poucos sem interromper o serviço?
+
+A troca acontece capacidade por capacidade atrás da Camada Anticorrupção dentro do Serviço de Integração Externa (visível no diagrama de contêineres como "[SOAP/HTTPS] Sincroniza leitos via Camada Anticorrupção"), enquanto o legado continua sendo chamado com disjuntor a cada reserva ainda não migrada (a mesma seta "chamada: reserva no legado, com disjuntor" da pergunta 2). Uma capacidade só é cortada do legado depois que uma função de aptidão comprovar zero reservas duplicadas durante um período de observação — nunca é uma virada única.
+Sustentado por: ADR 0002 (migração por capacidade + função de aptidão) · diagrama de contêineres (Serviço de Integração Externa) · diagrama de componentes (chamada com disjuntor ao legado).
