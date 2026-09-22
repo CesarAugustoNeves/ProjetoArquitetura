@@ -52,4 +52,4 @@ R: A notificação segue por fila até a Integração federal e legado, e não c
  
 5. Como o sistema legado de regulação é substituído aos poucos sem interromper o serviço?
     
-R:    
+R: Usando Integração federal e legado, hexagonal, com a camada anticorrupção como adaptador secundário. Esse padrão que se usa para permitir migração gradual.
