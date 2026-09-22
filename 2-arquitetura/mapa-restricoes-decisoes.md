@@ -17,3 +17,4 @@
 | Falha isolada e equipe enxuta de 25 desenvolvedores. | **ADR 0001:** Células por município com composição interna modular. | Combina isolamento entre municípios com uma estrutura interna que pode ser mantida pelos times existentes. |
 | Escalonamento para regiões específicas. | **ADR 0005:** Implantação progressiva por ondas. | Permite atualizar os municípios gradualmente e interromper a implantação caso seja detectado um problema. |
 | Prontuário deve manter histórico e rastreabilidade por 20 anos. | **ADR 0004:** Event sourcing no prontuário. | Mantém o histórico das alterações e permite reconstruir o estado do prontuário ao longo do período de retenção. |
+

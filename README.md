@@ -11,7 +11,7 @@ INTEGRANTES:
 
 * ENRYCO SUCOSKI MARTINS RA: 24005483
 
-* ISABELLE ORMO CRENONINI RA:
+* ISABELLE ORMO CRENONINI RA: 24007567
 
 * VITOR EUGÊNIO CASTELANO SILVA RA: 24005464
 
@@ -30,3 +30,19 @@ Envelope:
 
 Exigência que domina:
   Vários clientes; pico sazonal; falha isolada
+
+
+### Perguntas Obrigatórias 
+
+1. Como a UPA continua triando e atendendo com a internet fora do ar, e o que acontece quando ela volta?
+
+
+
+
+2. Como duas unidades disputando o mesmo leito nunca conseguem reservá-lo ao mesmo tempo, com o sistema legado ainda no circuito?
+
+3. Como o prontuário garante que se saiba quem acessou cada registro, e como convive a guarda de 20 anos com os direitos do paciente sob a LGPD?
+
+4. Como a notificação compulsória chega à vigilância em até 24 horas mesmo se o sistema federal estiver indisponível?
+
+5. Como o sistema legado de regulação é substituído aos poucos sem interromper o serviço?
