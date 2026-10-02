@@ -87,17 +87,3 @@ Rebatemos o ponto central: o disjuntor não usa um limite fixo arbitrário — a
 Mas aceitamos a parte concreta: não tínhamos nada que monitorasse o **tamanho e a idade da fila local de pendências** enquanto o disjuntor está aberto — e isso importa especialmente no pico sazonal que o próprio Envelope D descreve, quando a fila pode crescer rápido.
 
 **O que muda:** adicionamos à ADR 0005 o monitoramento explícito de quantidade e tempo de espera dos atendimentos pendentes por UBS durante a abertura do disjuntor, com alerta separado de acúmulo (diferente do alerta de disjuntor aberto), para diferenciar "rede instável, mas o volume represado está sob controle" de "rede instável e o volume represado está virando risco".
-
----
-
-## Resumo do que muda nos artefatos
-
-| Arquivo | Mudança |
-| --- | --- |
-| `respostas-às-cinco-perguntas-obrigatórias-do-caso.md` (Pergunta 2) | Reescrever para deixar explícito que a exclusividade do módulo novo vale por capacidade migrada, não universalmente |
-| `adr/0002-...md` | Explicitar que desligar uma capacidade inclui o acesso direto à UI do legado; adicionar etapa de levantamento/validação antes da migração de cada capacidade |
-| `adr/0001-...md` | Adicionar mitigação de custo operacional: template de célula, provisionamento por onda, teto de células por sprint |
-| `adr/0004-...md` | Separar dado de identificação (mutável) do fluxo de eventos clínicos (imutável); adicionar versionamento de evento, testes de compatibilidade e política de arquivamento |
-| `adr/0003-...md` | Mudar implementação para biblioteca versionada comum, mantendo execução isolada por célula |
-| `adr/0005-...md` | Adicionar monitoramento de fila de pendências por UBS durante disjuntor aberto |
-| `3-spike/exemplo.py` | Separar triagem local (sempre aceita) de operação central (sujeita a backpressure); alinhar saturação de célula com "cria-se outra célula" em vez de só rejeitar |
