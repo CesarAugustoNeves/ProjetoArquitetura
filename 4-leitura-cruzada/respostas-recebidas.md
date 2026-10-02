@@ -1,9 +1,5 @@
 # Respostas às objeções do Grupo 5
 
-Objeções recebidas em `padroes-e-arquitetura-grupo-5/4-leitura-cruzada/Objeções ao grupo 09.md`. Uma resposta por objeção: aceitamos e dizemos o que muda, ou rebatemos com argumento.
-
----
-
 ## 1 — Reserva de leitos vs. legado (overbooking)
 
 **Veredito: aceitamos em parte.**
