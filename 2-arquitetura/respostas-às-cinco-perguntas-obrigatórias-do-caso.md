@@ -17,13 +17,16 @@ Dessa forma, a indisponibilidade da internet não interrompe o atendimento: a UP
 
 ### 2. Como duas unidades disputando o mesmo leito nunca conseguem reservá-lo ao mesmo tempo, com o legado ainda no circuito?
 
-Toda reserva nova passa por um único ponto: o **Módulo Regulação de Leitos e Transporte [CQRS: modelo de escrita]**, que é o único componente responsável por confirmar ou recusar uma reserva. As consultas de disponibilidade utilizam a **Projeção de Vagas [CQRS: modelo de leitura]**, mantida de forma separada, garantindo que nenhuma unidade decida reservar com base em um painel desatualizado.
+Durante a transição, cada capacidade de reserva (leito de UPA, leito eletivo, transporte) tem exatamente uma fonte de verdade por vez — nunca duas simultaneamente para a mesma capacidade, mas qual sistema é essa fonte muda conforme o status de migração daquela capacidade específica:
 
-Para leitos ainda não migrados, o próprio módulo de escrita chama o sistema legado de forma síncrona por meio da instrução `chamada: reserva no legado, com disjuntor`, via **Camada Anticorrupção** do **Serviço de Integração Externa**, o que mantém o legado como fonte da verdade enquanto aquela capacidade específica não for migrada.
+Capacidade ainda não migrada: o sistema legado é a única fonte de verdade. **O Módulo Regulação de Leitos e Transporte [CQRS: modelo de escrita]** não decide a reserva sozinho — ele chama o legado de forma síncrona (chamada: reserva no legado, com disjuntor), via Camada Anticorrupção do Serviço de Integração Externa, e repassa a resposta do legado. Isso evita um segundo escritor: o novo sistema nunca confirma uma reserva que o legado não confirmou primeiro.
+Capacidade já migrada: aí sim o Módulo Regulação de Leitos e Transporte vira o único ponto responsável por confirmar ou recusar a reserva — mas só porque, ao migrar, o acesso direto das unidades à interface nativa do legado para aquela capacidade é redirecionado ou desativado (ADR 0002). Sem esse fechamento, as unidades ainda poderiam reservar direto no legado por fora do novo sistema, e aí existiriam dois escritores ao mesmo tempo.
 
-Adicionalmente, o fato de o sistema ser construído utilizando **Arquitetura Celular por Município (ADR 0001)** auxilia na independência em relação a filas, cache e banco de dados.
+Em nenhum momento da transição as duas coisas acontecem juntas para a mesma capacidade: ou é o legado (com acesso direto ainda aberto), ou é o módulo novo (com acesso direto já fechado) — nunca os dois.
 
-* **Sustentado por:** ADR 0001 (arquitetura celular) · ADR 0002 (estrangulamento + camada anticorrupção) · ADR 0005 (disjuntor na chamada) · Diagrama de componentes (*Módulo Regulação de Leitos*, *Projeção de Vagas*) · Diagrama de contêineres (*Serviço de Integração Externa* $\rightarrow$ *Sistema de Regulação Legado*).
+As consultas de disponibilidade usam a **Projeção de Vagas [CQRS: modelo de leitura]**, mantida separada da escrita, para que nenhuma unidade decida reservar com base em painel desatualizado. E, antes de qualquer capacidade ser migrada, suas regras são levantadas e convertidas em testes de aptidão (ADR 0008) — reduzindo o risco de uma regra de prioridade clínica desconhecida do legado aparecer só depois do corte.
+
+**Sustentado por:** ADR 0001 (arquitetura celular) · ADR 0002 (*estrangulamento + camada anticorrupção, incluindo o fechamento do acesso direto ao legado por capacidade migrada*) · ADR 0005 (disjuntor na chamada) · ADR 0008 (validação prévia por capacidade) · Diagrama de componentes (*Módulo Regulação de Leitos*, *Projeção de Vagas*) · Diagrama de contêineres (*Serviço de Integração Externa → Sistema de Regulação Legado*).
 
 
 ### 3. Como o prontuário garante que se saiba quem acessou cada registro, e como isso convive com a guarda de 20 anos sob a LGPD?
