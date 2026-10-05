@@ -1,6 +1,6 @@
 # ADR 0001: adotar arquitetura celular por município, com composição interna orientada a eventos entre os subdomínios
 
-**Status:** aceito
+**Status:** substituido pelo adr 0007
 
 **Contexto:** A empresa vende o mesmo sistema de atenção à saúde para várias
 prefeituras (envelope D), com 25 desenvolvedores em 3 times distribuídos entre

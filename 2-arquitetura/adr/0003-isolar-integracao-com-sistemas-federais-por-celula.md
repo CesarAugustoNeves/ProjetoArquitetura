@@ -1,6 +1,6 @@
 # ADR 0003: isolar por célula a integração com os sistemas federais de saúde, para não propagar indisponibilidade entre municípios
 
-**Status:** aceito
+**Status:** substituito pelo adr 0009
 
 **Contexto:** O caso exige integração por API com sistemas federais de saúde,
 usados por todos os municípios clientes da mesma forma, com janelas de

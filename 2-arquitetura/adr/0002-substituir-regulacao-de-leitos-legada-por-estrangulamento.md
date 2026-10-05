@@ -1,6 +1,6 @@
 # ADR 0002: substituir a regulação de leitos legada por estrangulamento com camada anticorrupção, célula a célula
 
-**Status:** aceito
+**Status:** substituída pelo ADR 0008
 
 **Contexto:** Cada município que contrata o sistema já opera uma regulação de
 leitos legada, que hoje não pode ser desligada antes de dois anos, exatamente

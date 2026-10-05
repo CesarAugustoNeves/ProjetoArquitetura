@@ -1,6 +1,6 @@
 # ADR 0004: registrar o prontuário eletrônico como fluxo de eventos (event sourcing) dentro de cada célula, para sustentar a trilha de 20 anos exigida pela regulação profissional
 
-**Status:** aceito
+**Status:** substituída pela ADR 0006 nos pontos de modelo de dado e versionamento de evento
 
 **Contexto:** O prontuário eletrônico deve ficar sob guarda obrigatória por 20
 anos, premissa da atividade inspirada na regulação profissional, e é dado
