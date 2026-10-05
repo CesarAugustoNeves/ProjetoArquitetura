@@ -6,8 +6,6 @@ afetado. Mudança que substitui a decisão de um ADR aceito gera um ADR novo;
 mudança que só acrescenta detalhe ou mitigação fica registrada como
 atualização no próprio ADR.
 
-## [Não lançado] — 2026-10-02 — Leitura cruzada, Grupo 5
-
 ### Adicionado
 - **ADR 0006** (nova): separa dado de identificação do paciente (mutável,
   corrigível) do fluxo de eventos clínicos do prontuário (imutável), e define
